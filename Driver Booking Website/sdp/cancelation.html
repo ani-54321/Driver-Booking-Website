@@ -1,0 +1,31 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="cssian.css">
+<title> GoGetWay </title>
+</head>
+<body>
+<div class="header">
+<h2> &nbsp GoGetWay.com </h2>
+</div>
+<br>
+<div id="block" style="border:1px solid red;background-color:#ff9999;border-radius:10px;margin:5px 400px 0px 400px;text-align:center;box-shadow:5px 10px #ffe6e6;display:none;">
+<p style="color:#b30000;"> Error!! Check out all the fields again </p>
+</div>
+<br><br>
+<div class="box">
+<form action="cancel.php" method="post">
+<h2> Driver Cancelation Form </h2>
+<label> First Name </label><br>
+<input type='text' name='f_name' class="form_data" autocomplete="off"><br><br>
+<label> Last Name </label><br>
+<input type='text' name='l_name' class="form_data" autocomplete="off"><br><br>
+<label> Mobile Number </label>
+<input type="number" placeholder="Provided at the time of booking" name='mob' class="form_data" id="mobile" autocomplete="off"><br><br>
+<label> Booking ID </label><br>
+<input type="number" placeholder="Sent at the time of booking" name="ID" id="book_id" class="form_data" autocomplete="off"><br><br>
+<input type="submit" name="cancel" value="Cancel Booking" id="cancelation" style="padding : 1% 1% 1% 1%;width:150px;" class="form_buts">
+</form>
+</div>
+<br><br>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<link rel="stylesheet" type="text/css" href="cssian.css">
+<title> GoGetWay </title>
+</head>
+<body>
+<div class="header">
+<h2> &nbsp; GoGetWay.com </h2>
+</div>
+<br><br>
+<div class="box">
+<form name="f2" action="phpian2.php" method="post" enctype="multipart/form-data">
+<h2> Change Information Here </h2>
+<label> Email-ID </input><br>
+<input type="email" name="access_email" class="form_data" placeholder="For Access(It Should Be Known)"><br><br>
+<label> New First Name </label><br>
+<input type="text" name="change_fname" class="form_data"><br><br>
+<label> New Last Name </label><br>
+<input type="text" name="change_lname" class="form_data"><br><br>
+<label> New Mobile Number </label><br>
+<input type="number" name="change_mb" class="form_data"><br><br>
+<label> New Passport Size Photo </label><br>
+<input type="file" name="change_photo" class="form_data"><br><br>
+<label> New License Photo </label><br>
+<input type="file" name="change_license" class="form_data"><br><br>
+<label> Where Do You Want To Change The Data In??? </label><br><br>
+<input type="checkbox" name="change_basis[]" value="temp" checked> Temporary Driver <br>
+<input type="checkbox" name="change_basis[]" value="per" checked> Permanent Driver <br>
+<input type="checkbox" name="change_basis[]" value="trans" checked> Transportation Of Goods <br><br><br>
+<label> Which Vehicles You Can Drive Now ??? </label><br><br>
+<input type="checkbox" name="change_abilities[]" value="2_Wheels"> 2 Wheeler <br>
+<input type="checkbox" name="change_abilities[]" value="3_Wheels"> 3 Wheeler <br>
+<input type="checkbox" name="change_abilities[]" value="4_Wheels"> 4 Wheeler <br><br>
+<input type="submit" name="fetch" value="Change Data" class="form_buts">
+</form>
+</div>
+<br><br>
+</body>
+</html>

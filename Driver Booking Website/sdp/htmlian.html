@@ -1,0 +1,46 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="cssian.css">
+<title> GoGetWay </title>
+</head>
+<body>
+<div class="header">
+<h2> &nbsp GoGetWay.com </h2>
+</div>
+<br><br>
+<div class="box">
+<form name="f1" action="phpian.php" method="post" enctype="multipart/form-data">
+<h2> Registration Form </h2>
+<label> Forename </label><br>
+<input name="fname" class="form_data" placeholder="First Name" autocomplete="off" required><br><br>
+<label> Surname </label><br>
+<input name="lname" class="form_data" placeholder="Last Name" autocomplete="off" required><br><br>
+<label> Gender </label><br>
+<input type="radio" name="gender" value="Male"> MALE &nbsp &nbsp &nbsp
+<input type="radio" name="gender" value="Female"> FEMALE <br><br>
+<label> Age </label><br>
+<input type="number" name="age" class="form_data" placeholder="Completed Years(NO OTHER SMALLER UNITS)" autocomplete="off" required><br><br>
+<label> Phone Number </label><br>
+<input type='tel' name="Mob" class="form_data" placeholder="Working 10 Digit Mobile Number" autocomplete="off" required><br><br>
+<label> Username </label><br>
+<input type="email" name="email" class="form_data" placeholder="Email-ID" autocomplete="off" required><br><br>
+<label> On Which Basis You Want To Enroll??? </label><br><br>
+<input type="checkbox" name="basis[]" value="Temporary"> Temporary Driver Driving For Tours <br>
+<input type="checkbox" name="basis[]" value="Permanent"> Permanent Driver Driving For Family <br>
+<input type="checkbox" name="basis[]" value="Transport"> Transportation Of Goods <br><br>
+<label> Vehicles Type That You Can Drive : </label><br><br>
+<input type="checkbox" name="type[]" value="2_Wheels"> 2 Wheelers <br>
+<input type="checkbox" name="type[]" value="3_Wheels"> 3 Wheelers <br>
+<input type="checkbox" name="type[]" value="4_Wheels"> 4 Wheelers <br><br>
+<label for="photo"> Your Passport Size Photo </label>
+<input type="file" name="photo" class="form_data" required><br><br>
+<label for="photo"> Your Adhar Card </label>
+<input type="file" name="adhar" class="form_data" required><br><br>
+<label for="photo"> Your License </label>
+<input type="file" name="license" class="form_data" required><br><br>
+<br><input type="submit" name="submit" value="Enroll" class="form_buts">
+</form>
+</div>
+<br><br>
+</body>
+</html>
