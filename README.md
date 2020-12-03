@@ -4,6 +4,7 @@ For booking drivers at remote location from remote location
 Files Description :
     1. Files in Driver Booking Website folder are for the whole system with login.
     2. Files in Driver Booking Website/sdp folder are for whole system without login and also with less features.
+    3. File 'Database for website' contains database which you need to import on xampp.
 
 Source of Idea :
     
