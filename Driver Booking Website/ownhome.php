@@ -1,5 +1,3 @@
-<!-- This page is for drivers as their dashboard showing all their past drives and other details -->
-
 <?php 
 session_start();
 include "sdp/connection.php";
@@ -15,6 +13,13 @@ include "sdp/connection.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <title>My Status | GoGetWay</title>
+
+    <style>
+      .table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+    </style>
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,6 +39,9 @@ include "sdp/connection.php";
         </li>
         <li class="nav-item">
           <a class="nav-link" href="changeinfo.php"> Update info </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="chattingDrivers.php"> Q & A </a>
         </li>
       </ul>
         <form class="form-inline my-2 my-lg-0" method="POST" action="passengerlogout.php">
@@ -67,7 +75,7 @@ include "sdp/connection.php";
   ?>
 
   <div class="container my-5">
-        <h5 style="text-align: center;"> Welcome Back <?php echo $_SESSION['name']?>! Your Fieldsets Are <?php echo $_SESSION['fields'];?></h5>
+        <h5 style="text-align: center;"> Welcome Back <?php echo $_SESSION['name']?>! <br><br> Your Fieldsets Are <?php echo $_SESSION['fields'];?></h5>
   </div>
   <div style="overflow:auto;">
   <table class="table">
@@ -80,12 +88,13 @@ include "sdp/connection.php";
           <th scope="col">Type</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
+          <th scope="col">Ammount Recieved</th>
         </tr>
       </thead>
       <tbody>
 
     <?php
-      $query = "SELECT `Name`, `BookingID`, `Driver_Contact`, `Place`, `Driver`, `Start_Journey`, `End_Journey` FROM passenger_info WHERE Driver_Contact='".$_SESSION['mobile']."'";
+      $query = "SELECT `Name`, `BookingID`, `Driver_Contact`, `Place`, `Driver`, `Start_Journey`, `End_Journey`, `Payment` FROM passenger_info WHERE Driver_Contact='".$_SESSION['mobile']."'";
       $run = mysqli_query($stat, $query);
       $sr = 0;
 
@@ -102,6 +111,7 @@ include "sdp/connection.php";
             <td><?php echo $passenger['Driver'];?></td>
             <td><?php echo $passenger['Start_Journey'];?></td>
             <td><?php echo $passenger['End_Journey'];?></td>
+            <td><?php echo $passenger['Payment'];?></td>
           </tr>
 
         <?php
@@ -112,7 +122,7 @@ include "sdp/connection.php";
 </table>
     </div>
   
-<footer>
+    <footer>
         <div style="padding-top: 50px; margin-right: 15px;">
             <div class="row bg-dark">
                 <div class="col-sm-6">
@@ -137,13 +147,15 @@ include "sdp/connection.php";
         </div>
         <div class="bg-dark text-light" style="height: 400px;">
             <h3 style="text-align: center; padding-top:10px;"> About Us </h3><br><br>
-            <p style="text-align: center;"> Visit Our Instagram Page : <a href="https://www.instagram.com/"> Instagram Page </a></p>
-            <p style="text-align: center;"> Visit Our Facebook Page : <a href="https://www.facebook.com/login/"> Facebook Page </a></p>
-            <p style="padding-bottom: 20px; text-align: center;"> Visit Our YouTube Chanel : <a href="https://www.youtube.com/"> YouTube Chanel </a></p>
+            <p style="text-align: center;"> Visit Below Pages <br><br><br>
+            <a href="https://www.instagram.com/" style="text-decoration: none;"> <img src="insta2.png" height="50px" width="50px" style="box-shadow: 2px 5px black;"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/login/" style="text-decoration: none;"> <img src="facebook.png" style="box-shadow: 2px 5px black;" height="50px" width="50px"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/" style="text-decoration: none;"> <img src="youtube.png" style="box-shadow: 2px 5px black;" height="50px" width="50px"> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/" style="text-decoration: none;"> <img src="linkedin.png" style="box-shadow: 2px 5px black;" height="50px" width="50px"> </a></p>
             <br><br><br><br>
             <h5 style="color: #B8B8B8; text-align: right; padding-right: 10px;">creator - Anish Shaha</h5>
         </div>
-</footer>
+    </footer>
   
 
     <!-- Optional JavaScript; choose one of the two! -->

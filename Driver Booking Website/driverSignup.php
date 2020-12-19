@@ -1,5 +1,3 @@
-<!-- This is Driver Signup form -->
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,16 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="login.html">Home</a>  <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="driverstatus.php">Driver Login </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="passengerLogin.php">Passenger Login </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="passengerSignup.php">Passenger Signup </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="driverSignup.php">Driver Signup </a>
@@ -64,7 +56,7 @@
       </div>
       <?php
     }
-?>
+  ?>
 
     <div class='container bg-dark text-light my-3'>
         <h3 style="padding-top: 5px;"> SignUp Form </h3>

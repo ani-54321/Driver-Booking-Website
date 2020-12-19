@@ -1,5 +1,4 @@
 <!-- Changing data of drivers -->
-
 <?php
 	session_start();
 	include "sdp/connection.php";
@@ -21,8 +20,8 @@
 		// Authorisation details.
 
 		// Authorisation details.
-		$username = ""; # Your email-id through which you have enrolled
-		$hash = ""; # hash code which you will get after adding your account on textlocal
+		$username = "shahaanish14@gmail.com"; # Your email-id through which you have enrolled
+		$hash = "a2424bac7f4944afb94757793f340fc80a5df0471a39c941992a141ba5006fe8"; # hash code which you will get after adding your account on textlocal
 
 		// Config variables. Consult http://api.textlocal.in/docs for more info.
 		$test = "0";
@@ -30,7 +29,7 @@
 		// Data for text message. This is the text message data.
 		$sender = "TXTLCL"; // This is who the message appears to be from.
 		$numbers = "$mobile_num"; // A single number or a comma-seperated list of numbers
-		$message = 	""; # Your message here
+		$message = 	"Hi, You Have Done Successful Registration!! Your Driver ID is $id. Please Keep It Private. It will work as Password for you..."; # Your message here
 		// 612 chars or less
 		// A single number or a comma-seperated list of numbers
 		$message = urlencode($message);

@@ -1,5 +1,3 @@
-<!-- Logs out passenger -->
-
 <?php
     session_start();
     include "sdp/connection.php";

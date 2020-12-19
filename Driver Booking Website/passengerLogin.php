@@ -1,5 +1,3 @@
-<!-- As per name it is passenger login form -->
-
 <!doctype html>
 <html lang="en">
 
@@ -29,17 +27,11 @@
           <a class="nav-link" href="login.html">Home <span
               class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="driverstatus.php">Driver Login </a>
-        </li>
         <li class="nav-item active">
           <a class="nav-link" href="passengerLogin.php">Passenger Login </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="passengerSignup.php">Passenger Signup </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="driverSignup.php">Driver Signup </a>
         </li>
       </ul>
     </div>
@@ -85,7 +77,7 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password">
       </div>
-      <button type="submit" class="btn btn-primary my-2" name="submit">Submit</button>
+      <button type="submit" class="btn btn-primary my-2" name="submit">Login</button>
     </form>
   </div>
 

@@ -1,5 +1,3 @@
-<!-- This page is containing form for booking driver -->
-
 <?php
     session_start();
     include "sdp/connection.php";
@@ -19,7 +17,7 @@
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="login.html"><b><i>GoGetWay</i></b></a>
+    <a class="navbar-brand" href="login.html"><i>Go</i><b>Get</b><i style="color: #f0f0f0;">Way</i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -36,9 +34,9 @@
         <li class="nav-item active">
           <a class="nav-link" href="makeTrip.php"> Book Driver </a>
         </li>
-        <!-- <li class="nav-item active">
-          <a class="nav-link" href="chattingPassengers.php"> Chat </a>
-        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="chattingPassengers.php"> Q & A </a>
+        </li>
       </ul>
         <form class="form-inline my-2 my-lg-0" method="POST" action="passengerlogout.php">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit"> Logout </button>
@@ -70,6 +68,12 @@
       <div class="form-group my-4" style='width:100%'>
         <label for="email">State for Travel</label>
         <?php include "cities/index.html";?>
+        <small id="emailHelp" class="form-text text-muted"></small>
+      </div><br>
+
+      <div class="form-group my-4" style='width:100%'>
+        <label for="pickup">Pickup Location</label>
+        <input type="text" class="form-control" id="pickup" name="pickup" autocomplete="off" placeholder="123, Society/Area Name, City" required>
         <small id="emailHelp" class="form-text text-muted"></small>
       </div><br>
 
@@ -184,13 +188,15 @@
         </div>
         <div class="bg-dark text-light" style="height: 400px;">
             <h3 style="text-align: center; padding-top:10px;"> About Us </h3><br><br>
-            <p style="text-align: center;"> Visit Our Instagram Page : <a href="https://www.instagram.com/"> Instagram Page </a></p>
-            <p style="text-align: center;"> Visit Our Facebook Page : <a href="https://www.facebook.com/login/"> Facebook Page </a></p>
-            <p style="padding-bottom: 20px; text-align: center;"> Visit Our YouTube Chanel : <a href="https://www.youtube.com/"> YouTube Chanel </a></p>
+            <p style="text-align: center;"> Visit Below Pages <br><br><br>
+            <a class="btn btn-secondary" href="https://www.instagram.com/" style="text-decoration: none;"> <img src="insta2.png" height="50px" width="50px" style="z-index: inherit; box-shadow: 2px 5px black;"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/login/" style="text-decoration: none;"> <img src="facebook.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/" style="text-decoration: none;"> <img src="youtube.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/" style="text-decoration: none;"> <img src="linkedin.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a></p>
             <br><br><br><br>
             <h5 style="color: #B8B8B8; text-align: right; padding-right: 10px;">creator - Anish Shaha</h5>
         </div>
-  </footer>
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

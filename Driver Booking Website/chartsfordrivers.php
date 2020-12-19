@@ -1,8 +1,7 @@
-<!-- This file is to show statistics to drivers in Statistics section -->
-
 <?php
     session_start();
     include "sdp/connection.php";
+    //apiKey = AIzaSyDCa1XHlhbunyZnXbZk3UTkk5IfbD2_644
 ?>
 
 <!doctype html>
@@ -125,6 +124,9 @@
         <li class="nav-item">
           <a class="nav-link" href="changeinfo.php"> Update info </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="chattingDrivers.php"> Q & A </a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" method="POST" action="passengerlogout.php">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit"> Logout </button>
@@ -184,13 +186,15 @@
         </div>
         <div class="bg-dark text-light" style="height: 400px;">
             <h3 style="text-align: center; padding-top:10px;"> About Us </h3><br><br>
-            <p style="text-align: center;"> Visit Our Instagram Page : <a href="https://www.instagram.com/"> Instagram Page </a></p>
-            <p style="text-align: center;"> Visit Our Facebook Page : <a href="https://www.facebook.com/login/"> Facebook Page </a></p>
-            <p style="padding-bottom: 20px; text-align: center;"> Visit Our YouTube Chanel : <a href="https://www.youtube.com/"> YouTube Chanel </a></p>
+            <p style="text-align: center;"> Visit Below Pages <br><br><br>
+            <a href="https://www.instagram.com/" style="text-decoration: none;"> <img src="insta2.png" height="50px" width="50px" style="z-index: inherit; box-shadow: 2px 5px black;"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/login/" style="text-decoration: none;"> <img src="facebook.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/" style="text-decoration: none;"> <img src="youtube.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/" style="text-decoration: none;"> <img src="linkedin.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a></p>
             <br><br><br><br>
             <h5 style="color: #B8B8B8; text-align: right; padding-right: 10px;">creator - Anish Shaha</h5>
         </div>
-</footer>
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -203,5 +207,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     -->
+    
   </body>
 </html>

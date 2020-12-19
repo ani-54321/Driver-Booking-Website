@@ -1,17 +1,13 @@
-<!-- Driver form submission -->
-
 <?php
     session_start();
 	include "sdp/connection.php";
-
-	# Message sending function
 	function messageSender($mobile_num, $bookId, $msg)
 	{
 		// Authorisation details.
 
 		// Authorisation details.
-		$username = "shahaanish14@gmail.com";
-		$hash = "a2424bac7f4944afb94757793f340fc80a5df0471a39c941992a141ba5006fe8";
+		$username = "anish.shaha2001@gmail.com";
+		$hash = "831a9b75777bda1495125c5e9f2721c9475c807ad1bac670fed24c7fb972e42b";
 
 		// Config variables. Consult http://api.textlocal.in/docs for more info.
 		$test = "0";
@@ -46,7 +42,7 @@
 			$query = "UPDATE passenger_info SET Ordered=1 WHERE Pemail_ID='$mobile'";
 			$fetch = "SELECT `Name` FROM passenger_info WHERE Pemail_ID='$mobile'";
 			$sec = "SELECT MAX(OrderIDs) AS max FROM passenger_info";
-			$fetch2 = "SELECT Driver_Name, Mobile_No FROM driver_info WHERE Mobile_No='$mob_num'";
+			$fetch2 = "SELECT Driver_Name, Mobile_No, `x coordinates`, `y coordinates` FROM driver_info WHERE Mobile_No='$mob_num'";
 
 			mysqli_query($stat, $query);
 			$ran = mysqli_query($stat, $fetch);
@@ -55,23 +51,47 @@
 			$row = mysqli_fetch_assoc($key);
 			$maximum = $row['max'];
 
-			$dtype = "SELECT `Driver` FROM passenger_info WHERE `OrderIDs`='$maximum'";
+			$dtype = "SELECT `Driver`,`Place`, `Start_Journey`, `End_Journey`, `x coordinates`, `y coordinates`, `PickupX`, `PickupY` FROM passenger_info WHERE `OrderIDs`='$maximum'";
 			$run = mysqli_query($stat, $dtype);
 			$type = mysqli_fetch_assoc($run);
 
 			if($type['Driver']=='temporary')
 			{
 				$q = "UPDATE driver_info SET Trips=Trips+1 WHERE Mobile_No='$mob_num'";
+				$drv = $type['Driver'];
+				$x_pass = $type['x coordinates'];
+				$y_pass = $type['y coordinates'];
+				$sdate = $type['Start_Journey'];
+				$edate = $type['End_Journey'];
+				$places = $type['Place'];
+				$x_pick = $type['PickupX'];
+				$y_pick = $type['PickupY'];
 				mysqli_query($stat, $q);
 			}
 			else if($type['Driver']=='permanent')
 			{
 				$q = "UPDATE permanent_info SET Trips=Trips+1 WHERE Mobile_No='$mob_num'";
+				$drv = $type['Driver'];
+				$x_pass = $type['x coordinates'];
+				$y_pass = $type['y coordinates'];
+				$sdate = $type['Start_Journey'];
+				$edate = $type['End_Journey'];
+				$places = $type['Place'];
+				$x_pick = $type['PickupX'];
+				$y_pick = $type['PickupY'];
 				mysqli_query($stat, $q);
 			}
 			else if($type['Driver']=='transport')
 			{
 				$q = "UPDATE transport_info SET Trips=Trips+1 WHERE Mobile_No='$mob_num'";
+				$drv = $type['Driver'];
+				$x_pass = $type['x coordinates'];
+				$y_pass = $type['y coordinates'];
+				$sdate = $type['Start_Journey'];
+				$edate = $type['End_Journey'];
+				$places = $type['Place'];
+				$x_pick = $type['PickupX'];
+				$y_pick = $type['PickupY'];
 				mysqli_query($stat, $q);
 			}
 			
@@ -89,20 +109,25 @@
 			while($value2 = mysqli_fetch_assoc($ran2))
 			{
 				$name2 = $value2['Driver_Name'];
+				$x_drv = $value2['x coordinates'];
+				$y_drv = $value2['y coordinates'];
 				$contact = $value2['Mobile_No'];
 			}
-			
-			mysqli_query($stat, "UPDATE passenger_info SET Driver_Alloted='$name2', BookingID='$bookId', Driver_Contact='$contact' WHERE Pemail_ID='$mobile' AND OrderIDs='$maximum'");
-            
-            if(isset($name)){
-                $msgToDriver = "You Are Selected By $name As Driver. Your Booking ID is $bookId";
-                $msgToPassenger = "You Have Chosen $name2 As Driver. Your Booking ID is $bookId. This ID will be used when you want to cancel the booking before the day of trip. Thanks For Chosing GoGetWay";
-            }
 
-			//messageSender($mob_num, $bookId, $msgToDriver);
-			//messageSender($mobile, $bookId, $msgToPassenger);
+			$distance = sqrt( pow(($y_drv - $y_pick), 2) + pow(($x_drv - $x_pick), 2) ) + sqrt( pow(($y_pass - $y_pick), 2) + pow(($x_pass - $x_pick), 2) ) + sqrt( pow(($y_pass - $y_drv), 2) + pow(($x_pass - $x_drv), 2) );
+			$rupay = round($distance * 5, 2);
+			
+			mysqli_query($stat, "UPDATE passenger_info SET Driver_Alloted='$name2', BookingID='$bookId', Driver_Contact='$contact', `Payment`='$rupay' WHERE Pemail_ID='$mobile' AND OrderIDs='$maximum'");
             
-            header("location:passengerTrips.php?Success=You have Successfully booked the driver");
+            
+			$msgToDriver = "You Are Selected By $name As Driver. Your Booking ID is $bookId. Profile: $drv,  Location : $places, Start Date: $sdate, End Date: $edate, Amount Recieved: Rs $rupay (Don't consider end date in case you are permanent driver).";
+			$msgToPassenger = "You Have Chosen $name2 As Driver. Your Booking ID is $bookId. Amount Required: Rs $rupay. This ID will be used when you want to cancel the booking before the day of trip. Thanks For Chosing GoGetWay";
+			//echo "$msgToDriver ----- $msgToPassenger";
+
+			messageSender($mob_num, $bookId, $msgToDriver);
+			messageSender($mobile, $bookId, $msgToPassenger);
+            
+            header("location:passengerTrips.php?Success=You have Successfully booked the driver with Rs $rupay");
         }
     }
 ?>

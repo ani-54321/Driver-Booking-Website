@@ -28,12 +28,33 @@
 	$end = $_POST['end_date'];
 	$today = date('Y-m-d');
 	$d_con = array();
+
+
+	function getCoordinates(){
+        $max = 1000;
+        $min = 100;
+        $random = rand($min, $max);
+        return $max / $random * $min;
+    }
+
+    function moneyRequired($x_drv, $y_drv, $x_pass, $y_pass){
+        $distance = sqrt( pow(($y_drv - $y_pass), 2) + pow(($x_drv - $x_pass), 2) );
+        $rupay = $distance * 5;
+        return $rupay;
+    }
 	
 	//echo $start . " " . $end;
 	
 	if (($dbcon) and ($start<=$end) and ($start>$today)){
+
+		$x = getCoordinates();
+        $y = getCoordinates();
+
+        $x_pickup = getCoordinates();
+        $y_pickup = getCoordinates();
+
 		echo "<form method='post' action='phpian4.php'>";
-		$q1 = "INSERT INTO passenger_info (Pemail_ID, Place, Vehicle_Type, Vehicle_Name, Driver, Applied, Name, Start_Journey, End_Journey) VALUES ('$mobile', '$place', '$v_type', '$v_name', '$d_type', 1, '$name', '$start', '$end')";
+		$q1 = "INSERT INTO passenger_info (Pemail_ID, Place, Vehicle_Type, Vehicle_Name, Driver, Applied, `Name`, Start_Journey, End_Journey, `x coordinates`, `y coordinates`, `PickupX`, `PickupY`) VALUES ('$mobile', '$place', '$v_type', '$v_name', '$d_type', 1, '$name', '$start', '$end')";
 		echo "<center class='mainh1'><input type='checkbox' name='mob_num' id='check' value=".$mobile." checked> This is just confirmation of your journey(don't deselect it) </center>";
 		mysqli_query($stat, $q1);
 		if ($d_type === 'temporary'){
@@ -70,16 +91,17 @@
 			
 			//print_r($d_con);
 			
-			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo FROM driver_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
+			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo, `x coordinates`, `y coordinates` FROM driver_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
 			$ran1 = mysqli_query($stat, $query1);
 			while($values = mysqli_fetch_assoc($ran1)){
-				if(!in_array($values['Mobile_No'], $d_con))
+				if(!in_array($values['Mobile_No'], $d_con)){
 					echo "<tr>
 					<td class='td'> ".$values['Driver_Name']." </td>
 					<td class='td'> ".$values['Driver_Age']." </td>
 					<td class='td'> ".$values['Sex']." </td>
 					<td class='td'> <button type='submit' class='buts' name='drivers' value=".$values['Mobile_No'].">Get Me</td>
 					</tr>";
+				}
 				else
 				{
 					continue;

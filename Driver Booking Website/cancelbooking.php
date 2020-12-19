@@ -1,5 +1,4 @@
 <!-- Cancels booking on passenger's request -->
-
 <?php
     include "sdp/connection.php";
     $cancel = $_POST['cancel'];

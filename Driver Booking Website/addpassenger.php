@@ -1,4 +1,4 @@
-<!-- Confirming booking if all information is correct -->
+<!-- Confirming booking if all informations is correct -->
 <?php
     include "sdp/connection.php";
     $user = $_POST['uname'];

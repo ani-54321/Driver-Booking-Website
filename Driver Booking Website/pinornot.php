@@ -1,5 +1,3 @@
-<!-- This page is passenger login backend -->
-
 <?php
     session_start();
     include "sdp/connection.php";

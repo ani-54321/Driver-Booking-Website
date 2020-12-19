@@ -1,8 +1,7 @@
-<!-- This file is to show statistics to drivers in Statistics section -->
-
 <?php
     session_start();
     include "sdp/connection.php";
+    //apiKey = AIzaSyDCa1XHlhbunyZnXbZk3UTkk5IfbD2_644
 ?>
 
 <!doctype html>
@@ -108,7 +107,7 @@
   </head>
   <body onResize="refresh()">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="login.html"><b><i>GoGetWay</i></b></a>
+    <a class="navbar-brand" href="login.html"><i>Go</i><b>Get</b><i style="color: #f0f0f0;">Way</i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -116,7 +115,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto" style='left:10px;'>
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="passengerTrips.php">Your Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
@@ -125,10 +124,13 @@
         <li class="nav-item">
           <a class="nav-link" href="makeTrip.php"> Book Driver </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="chattingPassengers.php"> Q & A </a>
+        </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0" method="POST" action="passengerlogout.php">
+        <form class="form-inline my-2 my-lg-0" method="POST" action="passengerlogout.php">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="submit"> Logout </button>
-      </form>
+        </form>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div style="width: 35px; height: 35px; border-radius: 18px; background-color: #7300e6; text-align: center;">
           <b><p style="color: white; padding-top:3px;"><?php echo strtoupper($_SESSION['name'][0]);?></p></b>
@@ -178,13 +180,15 @@
         </div>
         <div class="bg-dark text-light" style="height: 400px;">
             <h3 style="text-align: center; padding-top:10px;"> About Us </h3><br><br>
-            <p style="text-align: center;"> Visit Our Instagram Page : <a href="https://www.instagram.com/"> Instagram Page </a></p>
-            <p style="text-align: center;"> Visit Our Facebook Page : <a href="https://www.facebook.com/login/"> Facebook Page </a></p>
-            <p style="padding-bottom: 20px; text-align: center;"> Visit Our YouTube Chanel : <a href="https://www.youtube.com/"> YouTube Chanel </a></p>
+            <p style="text-align: center;"> Visit Below Pages <br><br><br>
+            <a href="https://www.instagram.com/" style="text-decoration: none;"> <img src="insta2.png" height="50px" width="50px" style="z-index: inherit; box-shadow: 2px 5px black;"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/login/" style="text-decoration: none;"> <img src="facebook.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/" style="text-decoration: none;"> <img src="youtube.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/" style="text-decoration: none;"> <img src="linkedin.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a></p>
             <br><br><br><br>
             <h5 style="color: #B8B8B8; text-align: right; padding-right: 10px;">creator - Anish Shaha</h5>
         </div>
-</footer>
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
@@ -199,3 +203,4 @@
     -->
   </body>
 </html>
+

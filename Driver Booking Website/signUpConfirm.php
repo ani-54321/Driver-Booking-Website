@@ -1,5 +1,3 @@
-<!-- Signup confirmation backend for drivers with their chosen fieldsets -->
-
 <?php
 	include "sdp/connection.php";
 	$fname = ucwords($_POST['fname']);
@@ -17,25 +15,23 @@
 	$files2 = $_FILES["adhar"];
 	$files3 = $_FILES["license"];
 	$flag = 0;
-
-	print_r($files);
+	$messageVar = "";
 	
-	# Sends message
-	function messageSender($mobile_num, $name, $id)
+	function messageSender($mobile_num, $name, $id, $messageAddon)
 	{
 		// Authorisation details.
 
 		// Authorisation details.
-		$username = "shahaanish14@gmail.com";
-		$hash = "a2424bac7f4944afb94757793f340fc80a5df0471a39c941992a141ba5006fe8";
+		$username = "anish.shaha2001@gmail.com";
+		$hash = "831a9b75777bda1495125c5e9f2721c9475c807ad1bac670fed24c7fb972e42b";
 
 		// Config variables. Consult http://api.textlocal.in/docs for more info.
 		$test = "0";
 
 		// Data for text message. This is the text message data.
 		$sender = "TXTLCL"; // This is who the message appears to be from.
-		$numbers = "$mobile_num"; // A single number or a comma-seperated list of numbers
-		$message = 	"Hi $name, You Have Done Successful Registration!! Your Driver ID is $id. Please Keep It Private. It will work as Password for you...";
+		$numbers = $mobile_num; // A single number or a comma-seperated list of numbers
+		$message = 	"Hi $name, You Have Done Successful Registration As $messageAddon!! Your Driver ID is $id. Please Keep It Private. It will work as Password for you...";
 		// 612 chars or less
 		// A single number or a comma-seperated list of numbers
 		$message = urlencode($message);
@@ -46,9 +42,9 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$result = curl_exec($ch); // This is the result from the API
 		curl_close($ch);
+		//echo $result;
 	}
 	
-	 # Unique driver-id generator
 	function unique($str)
 	{
 		$sum = 0;
@@ -60,8 +56,19 @@
 		}
 		return $sum;
 	}
+
+	function getCoordinates(){
+		$max = 1000;
+		$min = 100;
+		$random = rand($min, $max);
+		return $max / $random * $min;
+	}
 	
 	if ($dbcon and $age>=21 and !empty($fname) and !empty($lname) and !empty($mob) and isset($types) and !empty($email) and !empty($sex) and !empty($basis)){
+		
+		$x = getCoordinates();
+		$y = getCoordinates();
+
 		if (in_array('Temporary', $basis)) {
 			
 			$abilityD = "";
@@ -79,11 +86,12 @@
 					move_uploaded_file($files2['tmp_name'], $new_pathD2);
 					move_uploaded_file($files3['tmp_name'], $new_pathD3);
 					$driver_Id = unique($phone_no);
-					$queryD = "INSERT INTO driver_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityD', '$new_pathD', '$new_pathD2', '$new_pathD3');";
+					$queryD = "INSERT INTO driver_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License, `x coordinates`, `y coordinates`) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityD', '$new_pathD', '$new_pathD2', '$new_pathD3', '$x', '$y');";
 					$qrystatD = mysqli_query($stat, $queryD);
 					$flag = 1;
+					
 					if ($qrystatD){
-						//messageSender($mob, $name, $driver_Id);
+						$messageVar .= "Temporary Driver";
 					}
 				}
 			}
@@ -109,11 +117,17 @@
 					move_uploaded_file($files2['tmp_name'], $new_pathP2);
 					move_uploaded_file($files3['tmp_name'], $new_pathP3);
 					$driver_Id = unique($phone_no);
-					$queryP = "INSERT INTO permanent_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityP', '$new_pathP', '$new_pathP2', '$new_pathP3');";
+					$queryP = "INSERT INTO permanent_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License, `x coordinates`, `y coordinates`) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityP', '$new_pathP', '$new_pathP2', '$new_pathP3', '$x', '$y');";
 					$qrystatP = mysqli_query($stat, $queryP);
 					$flag = 1;
 					if ($qrystatP){
-						//messageSender($mob, $name, $driver_Id);
+						if(strlen($messageVar)==0)
+						{
+							$messageVar .= "Permanent Driver";
+						}
+						else{
+							$messageVar .= ", Permanent Driver";
+						}
 					}
 				}
 			}
@@ -138,11 +152,17 @@
 					move_uploaded_file($files2['tmp_name'], $new_pathT2);
 					move_uploaded_file($files3['tmp_name'], $new_pathT3);
 					$driver_Id = unique($phone_no);
-					$queryT = "INSERT INTO transport_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityT', '$new_pathT', '$new_pathT2', '$new_pathT3');";
+					$queryT = "INSERT INTO transport_info (Driver_ID, Driver_Name, Driver_Age, Place, Mobile_No, Email_ID, Sex, Types, Profile_Photo, Adhar_Card, License, `x coordinates`, `y coordinates`) VALUES ('$driver_Id', '$name', '$age', '$place', '$mob', '$email', '$sex', '$abilityT', '$new_pathT', '$new_pathT2', '$new_pathT3', '$x', '$y');";
 					$qrystatT = mysqli_query($stat, $queryT);
 					$flag = 1;
 					if ($qrystatT){
-						//messageSender($mob, $name, $driver_Id);
+						if(strlen($messageVar)==0)
+						{
+							$messageVar .= "Transport Driver";
+						}
+						else{
+							$messageVar .= ", Transport Driver";
+						}
 					}
 				}
 			}
@@ -158,7 +178,9 @@
 	}
 	if($flag==1)
 	{
-		header("location:driverstatus.php?Success=You have successfully enrolled yourself!!");
+		messageSender($phone_no, $name, $driver_Id, $messageVar);
+		header("location:driverstatus.php?Success=You have successfully enrolled yourself!! Your Driver ID is $driver_Id");
+		echo "Hi $name, You Have Done Successful Registration As $messageVar!! Your Driver ID is $driver_Id. Please Keep It Private. It will work as Password for you...";
 	}
 	else{
 		header("location:driverSignup.php?Unknown=Please check out your file type it should either be jpg or png...");

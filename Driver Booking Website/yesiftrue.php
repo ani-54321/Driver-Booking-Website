@@ -1,5 +1,3 @@
-<!-- Login status backend for drivers -->
-
 <?php
     session_start();
     include "sdp/connection.php";

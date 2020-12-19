@@ -1,5 +1,3 @@
-<!-- This is backend for logout, engaging and unengaging -->
-
 <?php
     session_start();
     include "sdp/connection.php";

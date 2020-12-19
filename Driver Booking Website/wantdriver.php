@@ -1,5 +1,3 @@
-<!-- This will provide you the list of drivers without any scheduled drives and who are not on leave -->
-
 <?php
     session_start();
     include "sdp/connection.php";
@@ -16,6 +14,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <title>Driver Chart | GoGetWay</title>
+
+    <style>
+      .table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+    </style>
   </head>
   <body>
 
@@ -39,6 +43,8 @@
 
     <h3 class="my-4" style="text-align: center;">Available Drivers Collaborating With Us</h3>
 
+    <div class="container" style="overflow: auto;">
+
     <?php
 	$f_name = ucfirst($_POST['f_name']);
 	$l_name = ucfirst($_POST['l_name']);
@@ -49,15 +55,35 @@
 	$d_type = $_POST['driver_type'];
 	$v_name = ucwords($_POST['vehicle_name']);
 	$start = $_POST['start_date'];
-	$end = $_POST['end_date'];
+    $end = $_POST['end_date'];
+    $pickUp = $_POST['pickup'];
     $d_con = array();
+
+    function getCoordinates(){
+        $max = 1000;
+        $min = 100;
+        $random = rand($min, $max);
+        return $max / $random * $min;
+    }
+
+    function moneyRequired($x_drv, $y_drv, $x_pass, $y_pass){
+        $distance = sqrt( pow(($y_drv - $y_pass), 2) + pow(($x_drv - $x_pass), 2) );
+        $rupay = $distance * 5;
+        return $rupay;
+    }
 	
 	if ($dbcon and $start<=$end){
+
+        $x = getCoordinates();
+        $y = getCoordinates();
+
+        $x_pickup = getCoordinates();
+        $y_pickup = getCoordinates();
+
 		echo "<form method='post' action='gotDriver.php'>";
-		$q1 = "INSERT INTO passenger_info (Pemail_ID, Place, Vehicle_Type, Vehicle_Name, Driver, Applied, `Name`, Start_Journey, End_Journey) VALUES ('$mobile', '$place', '$v_type', '$v_name', '$d_type', 1, '$name', '$start', '$end')";
+		$q1 = "INSERT INTO passenger_info (Pemail_ID, Place, Vehicle_Type, Vehicle_Name, Driver, Applied, `Name`, Start_Journey, End_Journey, `x coordinates`, `y coordinates`, `PickupX`, `PickupY`) VALUES ('$mobile', '$place', '$v_type', '$v_name', '$d_type', 1, '$name', '$start', '$end', '$x', '$y', '$x_pickup', '$y_pickup')";
         mysqli_query($stat, $q1);
 
-        # This are the fields of drivers which will be displayed for loged in passengers
         echo "<center><table id='tab' class='table'>
             <thead class='thead-dark'>
             <tr>
@@ -65,12 +91,12 @@
 			<th scope='col'> Name </th>
 			<th scope='col'> Age </th>
 			<th scope='col'> Gender </th>
-			<th scope='col'> Photo </th>
+            <th scope='col'> Photo </th>
+            <th scope='col'> Payment </th>
 			<th scope='col'> Get Drivers </th>
             </tr>
             </thead>";
         
-        # As per passenger's requirement the right driver will be displayed
 		if ($d_type === 'temporary'){
 			
 			$qp1 = "SELECT Start_Journey, End_Journey, Driver_Contact, Pemail_ID FROM passenger_info";
@@ -95,19 +121,23 @@
 				}
 			}
 			
-			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo FROM driver_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
+			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo, `x coordinates`, `y coordinates` FROM driver_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
             $ran1 = mysqli_query($stat, $query1);
             $counter = 0;
 			while($values = mysqli_fetch_assoc($ran1)){
                 if(!in_array($values['Mobile_No'], $d_con))
                 {
                     $counter+=1;
+                    $money = round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x_pickup, $y_pickup), 2) + round(moneyRequired($x_pickup, $y_pickup, $x, $y), 2) + round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x, $y), 2);
+                    // echo "$x_pickup, $y_pickup, $x, $y,";
+                    // echo  $values['x coordinates'] . "," . $values['y coordinates'];
                     echo "<tr>
                     <th scope='row'> $counter </th>
 					<td> ".$values['Driver_Name']." </td>
 					<td> ".$values['Driver_Age']." </td>
 					<td> ".$values['Sex']." </td>
-					<td> <img src=".$values['Profile_Photo']." height='100px' width='100px'> </td>
+                    <td> <img src=".$values['Profile_Photo']." height='100px' width='100px'> </td>
+                    <td> Rs $money </td>
 					<td> <button type='submit' class='buts btn-success my-2' name='drivers' value=".$values['Mobile_No'].">Get Me</td>
                     </tr>";
                 }
@@ -142,7 +172,7 @@
 				}
 			}
 
-			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo FROM permanent_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
+			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo, `x coordinates`, `y coordinates` FROM permanent_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
             $ran1 = mysqli_query($stat, $query1);
             $counter = 0;
 
@@ -151,12 +181,14 @@
                 if(!in_array($values['Mobile_No'], $d_con))
                 {
                     $counter+=1;
+                    $money = round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x_pickup, $y_pickup), 2) + round(moneyRequired($x_pickup, $y_pickup, $x, $y), 2) + round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x, $y), 2);
                     echo "<tr>
                     <th scope='row'> $counter </th>
                     <td class='td'> ".$values['Driver_Name']." </td>
                     <td class='td'> ".$values['Driver_Age']." </td>
                     <td class='td'> ".$values['Sex']." </td>
                     <td class='td'> <img src=".$values['Profile_Photo']." height='100px' width='100px'> </td>
+                    <td> Rs $money </td>
                     <td class='td'> <button type='submit' class='btn btn-success my-2' name='drivers' value=".$values['Mobile_No']."> Get Me </td>
                     </tr>";
                 }
@@ -191,7 +223,7 @@
 				}
 			}
 
-			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo FROM transport_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
+			$query1 = "SELECT Driver_Name, Driver_Age, Email_Id, Mobile_No, Sex, Profile_Photo, `x coordinates`, `y coordinates` FROM transport_info WHERE Working_Status='Unengaged' AND Types LIKE '%$v_type%'";
             $ran1 = mysqli_query($stat, $query1);
             $counter = 0;
 
@@ -199,12 +231,14 @@
                 if(!in_array($values['Mobile_No'], $d_con))
                 {
                     $counter+=1;
+                    $money = round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x_pickup, $y_pickup), 2) + round(moneyRequired($x_pickup, $y_pickup, $x, $y), 2) + round(moneyRequired($values['x coordinates'], $values['y coordinates'], $x, $y), 2);
                     echo "<tr>
                     <th scope='row'> $counter </th>
                     <td class='td'> ".$values['Driver_Name']." </td>
                     <td class='td'> ".$values['Driver_Age']." </td>
                     <td class='td'> ".$values['Sex']." </td>
                     <td class='td'> <img src=".$values['Profile_Photo']." height='100px' width='100px'> </td>
+                    <td> Rs $money </td>
                     <td class='td'> <button type='submit' class='btn-success my-2' name='drivers' value=".$values['Mobile_No']."> Get Me </td>
                     </tr>";
                 }
@@ -222,6 +256,8 @@
 		window.location = 'makeTrip.php';</script>";
 	}
 ?>
+
+</div>
 
 <footer>
         <div style="padding-top: 50px; margin-right: 15px;">
@@ -248,13 +284,15 @@
         </div>
         <div class="bg-dark text-light" style="height: 400px;">
             <h3 style="text-align: center; padding-top:10px;"> About Us </h3><br><br>
-            <p style="text-align: center;"> Visit Our Instagram Page : <a href="https://www.instagram.com/"> Instagram Page </a></p>
-            <p style="text-align: center;"> Visit Our Facebook Page : <a href="https://www.facebook.com/login/"> Facebook Page </a></p>
-            <p style="padding-bottom: 20px; text-align: center;"> Visit Our YouTube Chanel : <a href="https://www.youtube.com/"> YouTube Chanel </a></p>
+            <p style="text-align: center;"> Visit Below Pages <br><br><br>
+            <a href="https://www.instagram.com/" style="text-decoration: none;"> <img src="insta2.png" height="50px" width="50px" style="z-index: inherit; box-shadow: 2px 5px black;"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.facebook.com/login/" style="text-decoration: none;"> <img src="facebook.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.youtube.com/" style="text-decoration: none;"> <img src="youtube.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.linkedin.com/" style="text-decoration: none;"> <img src="linkedin.png" style="z-index: inherit; box-shadow: 2px 5px black;" height="50px" width="50px"> </a></p>
             <br><br><br><br>
             <h5 style="color: #B8B8B8; text-align: right; padding-right: 10px;">creator - Anish Shaha</h5>
-		</div>
-</footer>
+        </div>
+    </footer>
 
 </body>
 </html>

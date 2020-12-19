@@ -1,5 +1,3 @@
-<!-- This is passenger signup form -->
-
 <!doctype html>
 <html lang="en">
 
@@ -29,16 +27,10 @@
                     <a class="nav-link" href="login.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="driverstatus.php">Driver Login </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="passengerLogin.php">Passenger Login </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="passengerSignup.php">Passenger Signup </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="driverSignup.php">Driver Signup </a>
                 </li>
             </ul>
         </div>
