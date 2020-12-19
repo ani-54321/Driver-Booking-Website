@@ -30,6 +30,7 @@ Some Features :
 
     1.  Signup and Login page with sufficient condition checks.
     2.  Statistics page shows pie charts containing number of trip counts of particular driver.
+    3.  Q & A section is desgned for loged in drivers and passengers where they can ask their doubts and solve others doubts.
     3.  Policies in footer links are created considering different test cases.
     4.  When passenger fill the form of booking drivers, he/she will be shown with all eligible drivers for his/her application.
     5.  The drivers shown will not include pre-booked driver as well as driver on leave.
