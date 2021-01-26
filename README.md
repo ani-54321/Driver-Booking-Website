@@ -1,19 +1,19 @@
 # Driver-Booking-Website (with/without signup)
 For booking drivers at remote location from remote location
 
-Files Description :
+## Files Description :
     1. Files in Driver Booking Website folder are for the whole system with login.
     2. Files in Driver Booking Website/sdp folder are for whole system without login and also with less features.
     3. File 'Database for website' contains database which you need to import in localhost/phpmyadmin.
 
-Source of Idea :
+## Source of Idea :
     
     1. Made this website for drivers as well as passengers as an interface not as third party.
     2. So drivers who cannot get more opportunities due to their location constraint will get a huge explore.
     3. To make it possible to save time of people for searching drivers for vehicles owned by them.
 
 
-Tools : 
+## Tools : 
 
     This website using HTML, CSS, JavaScript, Bootstrap, PHP (XAMPP Server), Basic SQL Queries, Google API for Charts
 
@@ -26,7 +26,7 @@ Tools :
        Integration of SQL queries and PHP made it simpler for executing.
 
 
-Some Features : 
+## Some Features : 
 
     1.  Signup and Login page with sufficient condition checks.
     2.  Statistics page shows pie charts containing number of trip counts of particular driver.
