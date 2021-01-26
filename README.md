@@ -34,4 +34,4 @@ For booking drivers at remote location from remote location
     3.  Policies in footer links are created considering different test cases.
     4.  When passenger fill the form of booking drivers, he/she will be shown with all eligible drivers for his/her application.
     5.  The drivers shown will not include pre-booked driver as well as driver on leave.
-    6.  Message sending system to both driver and passenger using [Twilio Cloud Communication](https://www.twilio.com/)
+    6.  Message sending system to both driver and passenger using Twilio Cloud Communication.
